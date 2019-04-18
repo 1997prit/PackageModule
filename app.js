@@ -10,6 +10,8 @@ var hotelServiceRouter = require("./routes/hotelServices");
 var hotelSubscriptionType = require("./routes/hotelSubscriptionTypes");
 var hotelSubscription = require("./routes/hotelSubscriptions");
 var hotelList=require("./routes/hotelLists");
+var hotelSubscriptionService=require("./routes/hotelSubscriptionService");
+var hotelSubscriptionServiceAudit=require("./routes/hotelSubscriptionServiceAudits");
 var app = express();
 
 // view engine setup
@@ -28,6 +30,8 @@ app.use("/hotelservices", hotelServiceRouter);
 app.use("/hotelsubscriptiontype",hotelSubscriptionType);
 app.use("/hotelsubscription",hotelSubscription);
 app.use("/hotellist",hotelList);
+app.use("/hotelsubscriptionservice",hotelSubscriptionService);
+app.use("/hotelsubscriptionserviceaudit",hotelSubscriptionServiceAudit);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

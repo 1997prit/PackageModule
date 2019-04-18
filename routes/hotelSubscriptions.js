@@ -1,22 +1,11 @@
 var express = require("express");
 var router = express.Router();
 var subscription = require("../models/HotelSubscription");
-var insertid=0;
+var subid = 0;
+
+//------------------------------router request of hotel subscription----------------------------- 
 router.get("/getsubscriptiondetails", function(req, res, next) {
   subscription.getSubscriptionDetails(function(err, rows) {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(rows);
-    }
-  });
-});
-
-router.get("/getservicesbysubscription/:sub_id", function(req, res, next) {
-  subscription.getServicesBySubscription(req.params.sub_id, function(
-    err,
-    rows
-  ) {
     if (err) {
       res.json(err);
     } else {
@@ -35,11 +24,22 @@ router.get("/getsubscriptionname/:sub_type_id", function(req, res, next) {
   });
 });
 
+
 router.get("/getsubscriptionbyid/:sub_id", function(req, res, next) {
   subscription.getSubscriptionBySubId(req.params.sub_id, function(err, rows) {
     if (err) {
       res.json(err);
     } else {
+      res.json(rows);
+    }
+  });
+});
+
+router.get("/checksubscription/:sub_id",function(req,res,next){
+  subscription.checkSubscription(req.params.sub_id,function(err,rows){
+    if(err){
+      res.json(err);
+    }else{
       res.json(rows);
     }
   });
@@ -50,13 +50,14 @@ router.post("/addsubscription", function(req, res, next) {
       res.json(err);
     } else {
       res.json(rows);
-      this.insertid=rows.insertId;    
     }
   });
 });
-router.post("/addsubscriptionserviceaudit", function(req, res, next) {
-  
-  subscription.addSubscriptionServiceAudit(req.body, function(err, rows) {
+
+router.put("/updatesubscription/:sub_id", function(req, res, next) {
+  subid = parseInt(req.params.sub_id);
+  subscription.updateSubscription(subid, req.body, function(err, rows) {  
+    console.log(req.body);
     if (err) {
       res.json(err);
     } else {
@@ -64,5 +65,17 @@ router.post("/addsubscriptionserviceaudit", function(req, res, next) {
     }
   });
 });
+
+router.delete("/deletesubscription/:sub_id",function(req,res,next){
+  subscription.deleteSubscription(req.params.sub_id,function(err,rows){
+    if(err){
+      res.json(err);
+    }else{
+      res.json(rows);
+    }
+  });
+});
+
+
 
 module.exports = router;

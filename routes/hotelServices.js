@@ -12,19 +12,6 @@ router.get("/", function(req, res, next) {
   });
 });
 
-
-// start in new
-
-
-
-
-
-
-
-
-// end here 
-
-
 router.get("/:id", function(req, res, next) {
   services.getHotelServicesById(req.params.id, function(err, rows) {
     if (err) {
