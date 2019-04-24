@@ -4,15 +4,7 @@ var subscription = require("../models/HotelSubscription");
 var subid = 0;
 
 //------------------------------router request of hotel subscription----------------------------- 
-router.get("/getsubscriptiondetails", function(req, res, next) {
-  subscription.getSubscriptionDetails(function(err, rows) {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(rows);
-    }
-  });
-});
+
 
 router.get("/getsubscriptionname/:sub_type_id", function(req, res, next) {
   subscription.getSubscriptionName(req.params.sub_type_id, function(err, rows) {

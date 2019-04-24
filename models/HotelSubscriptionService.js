@@ -1,4 +1,4 @@
-var db = require("../dbConnection.js");
+var db = require("../dbConnection");
 var hotelSubscriptionService={
     
   //----------------------------get request for package list and no of hotels displayed---------------------------
@@ -11,12 +11,12 @@ var hotelSubscriptionService={
       callback
     );
   },
-    getSubscriptionDetails: function(callback) {
+  getSubscriptionDetails: function(callback) {
         return db.query(
-          "select bhs.sub_id as sub_id,bhs.subscription as Package_Name, bhs.created_at as Created_On,bha.fname as Created_By,COUNT(bh.hotel_id) as No_Of_Hotels,bhs.payable_amt as Payable_Amount FROM bns_hotel_subscriptions as bhs, bns_hotel_admin as bha,bns_hotels as bh WHERE bhs.created_by=bha.id and bh.sub_id = bhs.sub_id GROUP BY bh.sub_id",
+          "select bhs.sub_id as sub_id,bhs.subscription as Package_Name, bhs.sub_type_id, bhs.created_at as Created_On,bha.fname as Created_By,COUNT(bh.hotel_id) as No_Of_Hotels,bhs.payable_amt as Payable_Amount FROM bns_hotel_subscriptions as bhs, bns_hotel_admin as bha,bns_hotels as bh WHERE bhs.created_by=bha.id and bh.sub_id = bhs.sub_id GROUP BY bh.sub_id",
           callback
         );
-      },
+  },
     
   addSubscriptionService: function(hotelSubscriptionService, callback) {
     return db.query(

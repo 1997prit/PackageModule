@@ -5,8 +5,17 @@ var subscriptionservice = require("../models/HotelSubscriptionService");
 
 
 //------------------------------ subscription service table --------------------------
+router.get("/getsubscriptiondetails", function(req, res, next) {
+  subscriptionservice.getSubscriptionDetails(function(err, rows) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(rows);
+    }
+  });
+});
 
-router.get("/getservicesbysubscription/:sub_id", function(req, res, next) {
+router.get("/:sub_id", function(req, res, next) {
     subscriptionservice.getServicesBySubscription(req.params.sub_id, function(
       err,
       rows

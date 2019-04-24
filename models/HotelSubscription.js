@@ -6,14 +6,14 @@ var package = {
 
   getSubscriptionBySubId: function(sub_id, callback) {
     return db.query(
-      "select bhst.sub_type as sub_type,bhs.subscription as subscription,bhst.sub_type_id as sub_type_id, bhs.payable_amt as payable_amt FROM bns_hotel_subscriptions as bhs,bns_hotel_subscription_type as bhst WHERE  bhs.sub_type_id=bhst.sub_type_id and bhs.sub_id = ?",
+      "select bhst.sub_type as sub_type,bhs.subscription as subscription,bhs.sub_id as sub_id,bhst.sub_type_id as sub_type_id, bhs.payable_amt as payable_amt FROM bns_hotel_subscriptions as bhs,bns_hotel_subscription_type as bhst WHERE  bhs.sub_type_id=bhst.sub_type_id and bhs.sub_id = ?",
       [sub_id],
       callback
     );
   },
   getSubscriptionName: function(sub_type_id, callback) {
     return db.query(
-      "SELECT bhs.subscription as Package_Name from bns_hotel_subscriptions as bhs WHERE bhs.sub_type_id=?",
+      "SELECT bhs.subscription as Package_Name,bhs.sub_id as Package_Id from bns_hotel_subscriptions as bhs WHERE bhs.sub_type_id=?",
       [sub_type_id],
       callback
     );
